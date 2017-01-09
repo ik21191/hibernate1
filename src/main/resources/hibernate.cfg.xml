@@ -10,5 +10,6 @@
     <mapping resource="person.hbm.xml"/>
     <mapping resource="manyToOne.hbm.xml"/>
     <mapping resource="oneToMany.hbm.xml"/>
+    <mapping resource="oneToOne.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
