@@ -45,3 +45,9 @@ create table CERTIFICATE (
    employee_id INT default NULL,
    PRIMARY KEY (id)
 );
+
+The <set> element sets the relationship between Certificate and Employee classes. We used the cascade attribute in the <set> element to tell Hibernate to persist the Certificate objects at the same time as the Employee objects. The name attribute is set to the defined Set variable in the parent class, in our case it is certificates. For each set variable, we need to define a separate set element in the mapping file.
+
+The <key> element is the column in the CERTIFICATE table that holds the foreign key to the parent object ie. table EMPLOYEE.
+
+The <one-to-many> element indicates that one Employee object relates to many Certificate objects.
