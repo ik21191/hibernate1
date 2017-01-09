@@ -51,3 +51,31 @@ The <set> element sets the relationship between Certificate and Employee classes
 The <key> element is the column in the CERTIFICATE table that holds the foreign key to the parent object ie. table EMPLOYEE.
 
 The <one-to-many> element indicates that one Employee object relates to many Certificate objects.
+
+<strong>One to One mapping</strong>
+
+A one-to-one association is similar to many-to-one association with a difference that the column will be set as unique. For example an address object can be associated with a single employee object.
+
+Define RDBMS Tables:
+Consider a situation where we need to store our employee records in EMPLOYEE table which will have following structure:
+
+create table BANKEMPLOYEE (
+   id INT NOT NULL auto_increment,
+   first_name VARCHAR(20) default NULL,
+   last_name  VARCHAR(20) default NULL,
+   salary     INT  default NULL,
+   address    INT NOT NULL,
+   PRIMARY KEY (id)
+);
+Further, assuming that an address can be associated a single employee only, so this association can be presented using one-to-one association. We will store address related information in a separate table which has following structure:
+
+create table BANKEMPLOYEEADDRESS (
+   id INT NOT NULL auto_increment,
+   street_name VARCHAR(40) default NULL,
+   city_name VARCHAR(40) default NULL,
+   state_name VARCHAR(40) default NULL,
+   zipcode VARCHAR(10) default NULL,
+   PRIMARY KEY (id)
+);
+
+The <many-to-one> element is used to set the relationship between EMPLOYEE and ADDRESS entities. The name attribute is set to the defined variable in the parent class, in our case it is address. The column attribute is used to set the column name in the parent table EMPLOYEE which is set to unique so that only one Employee object can be associated with an address object.
