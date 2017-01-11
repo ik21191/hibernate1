@@ -12,5 +12,6 @@
     <mapping resource="oneToMany.hbm.xml"/>
     <mapping resource="oneToOne.hbm.xml"/>
     <mapping resource="manyToMany.hbm.xml"/>
+    <mapping resource="manyToManyBidirection.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
