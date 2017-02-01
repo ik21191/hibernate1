@@ -1,4 +1,7 @@
 # hibernate1
+Short Definition<br/>
+<strong>Many To One : </strong> More than one Employees have the single Address, means one Employee can have only one Address<br/>
+<strong>One To Many : </strong> One Employee can have more than one Address but these Addresses should not be shared with other Employees.
 A many-to-one association is the most common kind of association where an Object can be associated with multiple objects. For example a same address object can be associated with multiple employee objects.
 
 Define RDBMS Tables:

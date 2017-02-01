@@ -1,4 +1,4 @@
-package com.mypack;
+package com.mypack.insert;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,7 +15,8 @@ public class InsertPerson {
             SessionFactory f = cfg.buildSessionFactory();
             Session session = f.openSession();
             Transaction t = session.beginTransaction();
-            Person p = new Person("Vinay Kumar", 20);
+            Person p = new Person("Vijay Kumar", 83);
+            p.setId(1);
             session.save(p);
             t.commit();
             System.out.println("Persisted.");

@@ -1,4 +1,4 @@
-package com.mypack;
+package com.mypack.threadTest;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

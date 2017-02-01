@@ -1,7 +1,6 @@
 package manyToMany.bidirection;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -12,6 +11,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+@SuppressWarnings("unchecked")
 public class ManyToManyBidirectionTest {
 	 static Session session = null;
 	public static void main(String args[]) {
@@ -47,7 +47,7 @@ public class ManyToManyBidirectionTest {
  
 		student1.setCourses(courses);
 		student2.setCourses(courses);
- 	    Transaction tx = session.beginTransaction();
+ 	    //Transaction tx = session.beginTransaction();
         //session.save(student1);
         //session.save(student2);
  	    //tx.commit();
@@ -65,14 +65,12 @@ public class ManyToManyBidirectionTest {
 	      try{
 	         tx = session.beginTransaction();
 	         List<Student1> students = session.createQuery("FROM manyToMany.bidirection.Student1").list();
-	         for (Iterator<Student1> iterator1 = students.iterator(); iterator1.hasNext();){
-	            Student1 student = iterator1.next(); 
+	         for (Student1 student : students){
 	            System.out.println("First Name: " + student.getStudentName()); 
 	            Set<Course1> cources = student.getCourses();
-	            for (Iterator<Course1> iterator2 = cources.iterator(); iterator2.hasNext();){
-	                  Course1 course = (Course1) iterator2.next(); 
+	            for (Course1 course : cources){
 	                  System.out.println("Course: " + course.getCourseName()); 
-	            }
+	            }System.out.println();
 	         }
 	         tx.commit();
 	      }catch (HibernateException e) {
@@ -92,14 +90,12 @@ public class ManyToManyBidirectionTest {
 	         tx = session.beginTransaction();
 	          Query query= session.createQuery("FROM manyToMany.bidirection.Course1");
 	          List<Course1> courses = query.list();
-	         for (Iterator<Course1> iterator1 = courses.iterator(); iterator1.hasNext();){
-	            Course1 course = iterator1.next(); 
+	          for (Course1 course : courses){
 	            System.out.println("Course Name: " + course.getCourseName()); 
 	            Set<Student1> students = course.getStudents();
-	            for (Iterator<Student1> iterator2 = students.iterator(); iterator2.hasNext();){
-	                  Student1 student = (Student1) iterator2.next(); 
+	            for (Student1 student : students){
 	                  System.out.println("Course: " + student.getStudentName()); 
-	            }
+	            }System.out.println();
 	         }
 	         tx.commit();
 	      }catch (HibernateException e) {
