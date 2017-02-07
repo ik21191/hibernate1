@@ -1,4 +1,4 @@
-package manyToMany;
+package manyToMany.unidirection;
 
 import java.util.HashSet;
 import java.util.List;
@@ -11,7 +11,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 @SuppressWarnings("unchecked")
-public class ManyToManyTest {
+public class ManyToManyUnidirectionTest {
 	   private static SessionFactory factory; 
 	   public static void main(String[] args) {
 	      try{
@@ -20,7 +20,7 @@ public class ManyToManyTest {
 	         System.err.println("Failed to create sessionFactory object." + ex);
 	         throw new ExceptionInInitializerError(ex); 
 	      }
-	      ManyToManyTest ME = new ManyToManyTest();
+	      ManyToManyUnidirectionTest ME = new ManyToManyUnidirectionTest();
 	      /* Let us have a set of certificates for the first employee  */
 	      HashSet<Certificate> certificates = new HashSet<Certificate>();
 
@@ -75,7 +75,7 @@ public class ManyToManyTest {
 	      Transaction tx = null;
 	      try{
 	         tx = session.beginTransaction();
-	         List<Student> students = session.createQuery("FROM manyToMany.Student").list(); 
+	         List<Student> students = session.createQuery("FROM manyToMany.unidirection.Student").list(); 
 	         for (Student student : students ){
 	            System.out.print("First Name: " + student.getFirstName()); 
 	            System.out.print("  Last Name: " + student.getLastName()); 

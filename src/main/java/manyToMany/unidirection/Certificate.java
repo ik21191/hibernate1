@@ -1,4 +1,4 @@
-package manyToMany;
+package manyToMany.unidirection;
 
 public class Certificate {
 	   private int id;

@@ -1,4 +1,4 @@
-package manyToMany;
+package manyToMany.unidirection;
 
 import java.util.Set;
 
