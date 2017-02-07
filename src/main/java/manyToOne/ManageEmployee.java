@@ -1,6 +1,5 @@
 package manyToOne;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -9,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+@SuppressWarnings("unchecked")
 public class ManageEmployee {
 	   private static SessionFactory factory; 
 	   public static void main(String[] args) {
@@ -24,10 +24,10 @@ public class ManageEmployee {
 	      Address address = ME.addAddress("Kondapur","Hyderabad","AP","532");
 
 	      /* Add employee records in the database */
-	      Integer empID1 = ME.addEmployee("Manoj", "Kumar", 4000, address);
+	      ME.addEmployee("Manoj", "Kumar", 4000, address);
 
 	      /* Add another employee record in the database */
-	      Integer empID2 = ME.addEmployee("Dilip", "Kumar", 3000, address);
+	      ME.addEmployee("Dilip", "Kumar", 3000, address);
 
 	      /* List down all the employees */
 	      //ME.listEmployees();
@@ -54,6 +54,7 @@ public class ManageEmployee {
 	         tx = session.beginTransaction();
 	         address = new Address(street, city, state, zipcode);
 	         addressID = (Integer) session.save(address); 
+	         System.out.println(addressID);
 	         tx.commit();
 	      }catch (HibernateException e) {
 	         if (tx!=null) tx.rollback();
@@ -90,10 +91,8 @@ public class ManageEmployee {
 	      Transaction tx = null;
 	      try{
 	         tx = session.beginTransaction();
-	         List employees = session.createQuery("FROM Employee").list(); 
-	         for (Iterator iterator = 
-	                           employees.iterator(); iterator.hasNext();){
-	            Employee employee = (Employee) iterator.next(); 
+	         List<Employee> employees = session.createQuery("FROM manyToOne.Employee").list(); 
+	         for (Employee employee : employees){
 	            System.out.print("First Name: " + employee.getFirstName()); 
 	            System.out.print("  Last Name: " + employee.getLastName()); 
 	            System.out.println("  Salary: " + employee.getSalary());

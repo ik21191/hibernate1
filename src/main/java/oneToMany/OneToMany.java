@@ -1,7 +1,6 @@
 package oneToMany;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -11,10 +10,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+@SuppressWarnings("unchecked")
 public class OneToMany {
 	   private static SessionFactory factory; 
 	   public static void main(String[] args) {
-	      try{
+	      try {
 	         factory = new Configuration().configure().buildSessionFactory();
 	      }catch (Throwable ex) { 
 	         System.err.println("Failed to create sessionFactory object." + ex);
@@ -22,7 +22,7 @@ public class OneToMany {
 	      }
 	      OneToMany ME = new OneToMany();
 	      /* Let us have a set of certificates for the first employee  */
-	      HashSet set1 = new HashSet();
+	      HashSet<Certificate> set1 = new HashSet<Certificate>();
 	      set1.add(new Certificate("MCA"));
 	      set1.add(new Certificate("MBA"));
 	      set1.add(new Certificate("PMP"));
@@ -31,12 +31,12 @@ public class OneToMany {
 	      Integer empID1 = ME.addEmployee("Manoj", "Kumar", 4000, set1);
 
 	      /* Another set of certificates for the second employee  */
-	      HashSet set2 = new HashSet();
+	      HashSet<Certificate> set2 = new HashSet<Certificate>();
 	      set2.add(new Certificate("BCA"));
 	      set2.add(new Certificate("BA"));
 
 	      /* Add another employee record in the database */
-	      Integer empID2 = ME.addEmployee("Dilip", "Kumar", 3000, set2);
+	      ME.addEmployee("Dilip", "Kumar", 3000, set2);
 
 	      /* List down all the employees */
 	      ME.listEmployees();
@@ -54,7 +54,7 @@ public class OneToMany {
 
 	   /* Method to add an employee record in the database */
 	   public Integer addEmployee(String fname, String lname, 
-	                                            int salary, Set cert){
+	                                            int salary, Set<Certificate> cert){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
 	      Integer employeeID = null;
@@ -79,18 +79,14 @@ public class OneToMany {
 	      Transaction tx = null;
 	      try{
 	         tx = session.beginTransaction();
-	         List employees = session.createQuery("FROM oneToMany.Employee").list(); 
-	         for (Iterator iterator1 = 
-	                           employees.iterator(); iterator1.hasNext();){
-	            Employee employee = (Employee) iterator1.next(); 
+	         List<Employee> employees = session.createQuery("FROM oneToMany.Employee").list(); 
+	         for (Employee employee : employees){
 	            System.out.print("First Name: " + employee.getFirstName()); 
 	            System.out.print("  Last Name: " + employee.getLastName()); 
 	            System.out.println("  Salary: " + employee.getSalary());
-	            Set certificates = employee.getCertificates();
-	            for (Iterator iterator2 = 
-	                         certificates.iterator(); iterator2.hasNext();){
-	                  Certificate certName = (Certificate) iterator2.next(); 
-	                  System.out.println("Certificate: " + certName.getName()); 
+	            Set<Certificate> certificates = employee.getCertificates();
+	            for (Certificate certificate : certificates) {
+	                  System.out.println("Certificate: " + certificate.getName()); 
 	            }
 	         }
 	         tx.commit();
@@ -107,8 +103,7 @@ public class OneToMany {
 	      Transaction tx = null;
 	      try{
 	         tx = session.beginTransaction();
-	         Employee employee = 
-	                    (Employee)session.get(Employee.class, EmployeeID); 
+	         Employee employee = (Employee)session.get(Employee.class, EmployeeID); 
 	         employee.setSalary( salary );
 	         session.update(employee);
 	         tx.commit();
@@ -125,8 +120,7 @@ public class OneToMany {
 	      Transaction tx = null;
 	      try{
 	         tx = session.beginTransaction();
-	         Employee employee = 
-	                   (Employee)session.get(Employee.class, EmployeeID); 
+	         Employee employee = (Employee)session.get(Employee.class, EmployeeID); 
 	         session.delete(employee); 
 	         tx.commit();
 	      }catch (HibernateException e) {
