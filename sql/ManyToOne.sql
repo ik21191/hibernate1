@@ -6,7 +6,7 @@ create table EMPLOYEE (
    first_name VARCHAR(20) default NULL,
    last_name  VARCHAR(20) default NULL,
    salary     INT  default NULL,
-   address    INT NOT NULL,
+   address    INT DEFAULT NULL,
    PRIMARY KEY (id)
 );
 
