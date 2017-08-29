@@ -1,7 +1,6 @@
-package manyToMany;
+package manyToMany.unidirection;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -11,7 +10,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
-public class ManyToManyTest {
+@SuppressWarnings("unchecked")
+public class ManyToManyUnidirectionTest {
 	   private static SessionFactory factory; 
 	   public static void main(String[] args) {
 	      try{
@@ -20,9 +20,9 @@ public class ManyToManyTest {
 	         System.err.println("Failed to create sessionFactory object." + ex);
 	         throw new ExceptionInInitializerError(ex); 
 	      }
-	      ManyToManyTest ME = new ManyToManyTest();
+	      ManyToManyUnidirectionTest ME = new ManyToManyUnidirectionTest();
 	      /* Let us have a set of certificates for the first employee  */
-	      HashSet certificates = new HashSet();
+	      HashSet<Certificate> certificates = new HashSet<Certificate>();
 
 	      certificates.add(new Certificate("MCA"));
 	      certificates.add(new Certificate("MBA"));
@@ -32,7 +32,7 @@ public class ManyToManyTest {
 	      Integer empID1 = ME.addEmployee("Manoj", "Kumar", 4000, certificates);
 
 	      /* Add another employee record in the database */
-	      Integer empID2 = ME.addEmployee("Dilip", "Kumar", 3000, certificates);
+	      ME.addEmployee("Dilip", "Kumar", 3000, certificates);
 
 	      /* List down all the employees */
 	      ME.listEmployees();
@@ -50,7 +50,7 @@ public class ManyToManyTest {
 
 	   /* Method to add an employee record in the database */
 	   public Integer addEmployee(String fname, String lname, 
-	                                            int salary, Set cert){
+	                                            int salary, Set<Certificate> cert){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
 	      Integer employeeID = null;
@@ -75,18 +75,14 @@ public class ManyToManyTest {
 	      Transaction tx = null;
 	      try{
 	         tx = session.beginTransaction();
-	         List employees = session.createQuery("FROM manyToMany.Student").list(); 
-	         for (Iterator iterator1 = 
-	                           employees.iterator(); iterator1.hasNext();){
-	            Student employee = (Student) iterator1.next(); 
-	            System.out.print("First Name: " + employee.getFirstName()); 
-	            System.out.print("  Last Name: " + employee.getLastName()); 
-	            System.out.println("  Salary: " + employee.getSalary());
-	            Set certificates = employee.getCertificates();
-	            for (Iterator iterator2 = 
-	                         certificates.iterator(); iterator2.hasNext();){
-	                  Certificate certName = (Certificate) iterator2.next(); 
-	                  System.out.println("Certificate: " + certName.getName()); 
+	         List<Student> students = session.createQuery("FROM manyToMany.unidirection.Student").list(); 
+	         for (Student student : students ){
+	            System.out.print("First Name: " + student.getFirstName()); 
+	            System.out.print("  Last Name: " + student.getLastName()); 
+	            System.out.println("  Salary: " + student.getSalary());
+	            Set<Certificate> certificates = student.getCertificates();
+	            for (Certificate certificate : certificates ) {
+	                  System.out.println("Certificate: " + certificate.getName()); 
 	            }
 	         }
 	         tx.commit();

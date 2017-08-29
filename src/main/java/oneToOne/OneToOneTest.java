@@ -1,6 +1,5 @@
 package oneToOne;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -9,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+@SuppressWarnings("unchecked")
 public class OneToOneTest {
 	   private static SessionFactory factory; 
 	   public static void main(String[] args) {
@@ -30,7 +30,7 @@ public class OneToOneTest {
 	      BankEmployeeAddress address2 = ME.addAddress("Saharanpur","Ambehta","UP","111");
 	  
 	    /* Add another employee record in the database */
-	      Integer empID2 = ME.addEmployee("Dilip", "Kumar", 3000, address2);
+	      ME.addEmployee("Dilip", "Kumar", 3000, address2);
 
 	      /* List down all the employees */
 	      ME.listEmployees();
@@ -54,6 +54,7 @@ public class OneToOneTest {
 	         tx = session.beginTransaction();
 	         address = new BankEmployeeAddress(street, city, state, zipcode);
 	         addressID = (Integer) session.save(address); 
+	         System.out.println(addressID);
 	         tx.commit();
 	      }catch (HibernateException e) {
 	         if (tx!=null) tx.rollback();
@@ -90,14 +91,13 @@ public class OneToOneTest {
 	      Transaction tx = null;
 	      try{
 	         tx = session.beginTransaction();
-	         List employees = session.createQuery("FROM oneToOne.BankEmployee").list(); 
-	         for (Iterator iterator = 
-	                           employees.iterator(); iterator.hasNext();){
-	            BankEmployee employee = (BankEmployee) iterator.next(); 
-	            System.out.print("First Name: " + employee.getFirstName()); 
-	            System.out.print("  Last Name: " + employee.getLastName()); 
-	            System.out.println("  Salary: " + employee.getSalary());
-	            BankEmployeeAddress add = employee.getAddress();
+	         List<BankEmployee> bankEmployees = session.createQuery("FROM oneToOne.BankEmployee").list(); 
+	         for (BankEmployee bankEmployee : bankEmployees){
+	             
+	            System.out.print("First Name: " + bankEmployee.getFirstName()); 
+	            System.out.print("  Last Name: " + bankEmployee.getLastName()); 
+	            System.out.println("  Salary: " + bankEmployee.getSalary());
+	            BankEmployeeAddress add = bankEmployee.getAddress();
 	            System.out.println("Address ");
 	            System.out.println("\tStreet: " +  add.getStreet());
 	            System.out.println("\tCity: " + add.getCity());
@@ -118,8 +118,7 @@ public class OneToOneTest {
 	      Transaction tx = null;
 	      try{
 	         tx = session.beginTransaction();
-	         BankEmployee employee = 
-	                    (BankEmployee)session.get(BankEmployee.class, EmployeeID); 
+	         BankEmployee employee = (BankEmployee)session.get(BankEmployee.class, EmployeeID); 
 	         employee.setSalary( salary );
 	         session.update(employee);
 	         tx.commit();

@@ -8,7 +8,7 @@ public class Employee {
 	   private String firstName; 
 	   private String lastName;   
 	   private int salary;
-	   private Set certificates;
+	   private Set<Certificate> certificates;
 
 	   public Employee() {}
 	   public Employee(String fname, String lname, int salary) {
@@ -41,10 +41,10 @@ public class Employee {
 	      this.salary = salary;
 	   }
 
-	   public Set getCertificates() {
+	   public Set<Certificate> getCertificates() {
 	      return certificates;
 	   }
-	   public void setCertificates( Set certificates ) {
+	   public void setCertificates( Set<Certificate> certificates ) {
 	      this.certificates = certificates;
 	   }
 	}

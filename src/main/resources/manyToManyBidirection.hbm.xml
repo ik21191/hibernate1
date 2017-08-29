@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="manyToMany.bidirection.Student1" table="student1">
+		<id name="studentId" column="studentid" />
+		<property name="studentName" column="studentname" length="20" />
+		<property name="marks" />
+		<set name="courses" cascade="all" table="students_courses">
+			<key column="student_id " />
+			<many-to-many class="manyToMany.bidirection.Course1" column="course_id" />
+		</set>
+	</class>
+
+	<class name="manyToMany.bidirection.Course1" table="courses1">
+		<id name="courseId" column="courseid" />
+		<property name="courseName" column="coursename" length="20" />
+		<property name="duration" />
+		<set name="students" inverse="false" cascade="all" table="students_courses">
+			<key column="course_id" />
+			<many-to-many class="manyToMany.bidirection.Student1" column="student_id " />
+		</set>
+	</class>
+
+</hibernate-mapping>

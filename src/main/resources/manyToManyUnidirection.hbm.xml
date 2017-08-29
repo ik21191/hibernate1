@@ -4,7 +4,7 @@
  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
 
 <hibernate-mapping auto-import="false">
-   <class name="manyToMany.Student" table="STUDENT">
+   <class name="manyToMany.unidirection.Student" table="STUDENT">
       <meta attribute="class-description">
          This class contains the employee detail. 
       </meta>
@@ -13,14 +13,14 @@
       </id>
       <set name="certificates" cascade="save-update" table="STU_CERT">
          <key column="employee_id"/>
-         <many-to-many column="certificate_id" class="manyToMany.Certificate"/>
+         <many-to-many column="certificate_id" class="manyToMany.unidirection.Certificate"/>
       </set>
       <property name="firstName" column="first_name" type="string"/>
       <property name="lastName" column="last_name" type="string"/>
       <property name="salary" column="salary" type="int"/>
    </class>
 
-   <class name="manyToMany.Certificate" table="CERTIFICATE_OF_STUDENT">
+   <class name="manyToMany.unidirection.Certificate" table="CERTIFICATE_OF_STUDENT">
       <meta attribute="class-description">
          This class contains the certificate records. 
       </meta>

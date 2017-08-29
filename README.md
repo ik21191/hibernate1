@@ -1,4 +1,7 @@
 # hibernate1
+Short Definition<br/>
+<strong>Many To One : </strong> More than one Employees have the single Address, means one Employee can have only one Address<br/>
+<strong>One To Many : </strong> One Employee can have more than one Address but these Addresses should not be shared with other Employees.
 A many-to-one association is the most common kind of association where an Object can be associated with multiple objects. For example a same address object can be associated with multiple employee objects.
 
 Define RDBMS Tables:
@@ -114,3 +117,13 @@ The <set> element sets the relationship between Certificate and Employee classes
 The <key> element is the column in the EMP_CERT table that holds the foreign key to the parent object ie. table EMPLOYEE and links to the certification_id in the CERTIFICATE table.
 
 The <many-to-many> element indicates that one Employee object relates to many Certificate objects and column attributes are used to link intermediate EMP_CERT.
+
+<strong>Many To Many Bidirectional mapping</strong>
+Let us see an example on this many to many relationship in hibernate.  Actually here there is no question of unidirectional, only Bi-Directional.
+Applying many to many relationship between two pojo class objects is nothing but applying one to many relationship on both sides, which tends to Bi-Directional i mean many to many.
+Example:
+Let us see this, if we apply many to many association between two pojo class objects student and course, provided the relationship is one student may joined in multiple courses and one course contains lot of students (joined by multiple students)
+Remember, when ever we are applying many to many relationship between two pojo class objects, on both sides  we need a collection property [As we are applying one to many from both the sides]
+Note Points:
+While applying many to many relationship between pojo classes,  a mediator table is mandatory in the database, to store primary key as foreign key both sides, we call this table as Join table
+In many to many relationship join table contain foreign keys only

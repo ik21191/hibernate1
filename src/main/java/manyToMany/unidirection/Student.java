@@ -1,4 +1,4 @@
-package manyToMany;
+package manyToMany.unidirection;
 
 import java.util.Set;
 
@@ -7,7 +7,7 @@ public class Student {
 	   private String firstName; 
 	   private String lastName;   
 	   private int salary;
-	   private Set certificates;
+	   private Set<Certificate> certificates;
 
 	   public Student() {}
 	   public Student(String fname, String lname, int salary) {
@@ -40,10 +40,10 @@ public class Student {
 	      this.salary = salary;
 	   }
 
-	   public Set getCertificates() {
+	   public Set<Certificate> getCertificates() {
 	      return certificates;
 	   }
-	   public void setCertificates( Set certificates ) {
+	   public void setCertificates( Set<Certificate> certificates ) {
 	      this.certificates = certificates;
 	   }
 	}
