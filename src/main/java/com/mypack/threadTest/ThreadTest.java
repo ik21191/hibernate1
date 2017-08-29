@@ -9,6 +9,7 @@ import beans.Person;
 public class ThreadTest implements Runnable {
 	static Configuration cfg = null;
 	static SessionFactory factory = null;
+	@Override
 	public void run() {
 		save();
 	}

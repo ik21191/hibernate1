@@ -7,6 +7,7 @@ import manyToMany.bidirection.Course1;
 import manyToMany.bidirection.Student1;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -35,8 +36,10 @@ public class Select {
 	      Transaction tx = null;
 	      try{
 	         tx = session.beginTransaction();
-	         String query = "FROM manyToMany.bidirection.Student1 student";
-	         List<Student1> students = session.createQuery(query).list();
+	         String HQLquery = "FROM manyToMany.bidirection.Student1 student";
+	         Query query = session.createQuery(HQLquery);
+	         query.setComment("This is user defined comment for debugging.");
+	         List<Student1> students = query.list();
 	         for (Student1 student : students){
 	            System.out.println("First Name: " + student.getStudentName()); 
 	            Set<Course1> cources = student.getCourses();

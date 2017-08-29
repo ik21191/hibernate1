@@ -7,7 +7,9 @@
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hibernate1</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">root</property>
-    <!-- <property name="show_sql">true</property> -->
+    <property name="show_sql">true</property>
+    <property name="hibernate.use_sql_comments">true</property>
+    <property name="cache.provider_class">net.sf.ehcache.hibernate.EhCacheProvider</property>
     
     <!-- You can see the connections in MySql using Tools->Show->Processlist. -->
     <!-- <property name="hibernate.c3p0.min_size">5</property>
@@ -22,5 +24,6 @@
     <mapping resource="oneToOne.hbm.xml"/>
     <mapping resource="manyToManyUnidirection.hbm.xml"/>
     <mapping resource="manyToManyBidirection.hbm.xml"/>
+    <mapping resource="tablePerHierarchy.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
