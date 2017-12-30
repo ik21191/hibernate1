@@ -44,8 +44,7 @@ public class ManageEmployee {
 	   }
 
 	   /* Method to add an address record in the database */
-	   public Address addAddress(String street, String city, 
-	                             String state, String zipcode) {
+	   public Address addAddress(String street, String city, String state, String zipcode) {
 	      Session session = factory.openSession();
 	      Transaction tx = null;
 	      Integer addressID = null;
@@ -66,8 +65,7 @@ public class ManageEmployee {
 	   }
 
 	   /* Method to add an employee record in the database */
-	   public Integer addEmployee(String fname, String lname, 
-	                              int salary, Address address){
+	   public Integer addEmployee(String fname, String lname, int salary, Address address){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
 	      Integer employeeID = null;
@@ -117,8 +115,7 @@ public class ManageEmployee {
 	      Transaction tx = null;
 	      try{
 	         tx = session.beginTransaction();
-	         Employee employee = 
-	                    (Employee)session.get(Employee.class, EmployeeID); 
+	         Employee employee = (Employee)session.get(Employee.class, EmployeeID); 
 	         employee.setSalary( salary );
 	         session.update(employee);
 	         tx.commit();
@@ -135,8 +132,7 @@ public class ManageEmployee {
 	      Transaction tx = null;
 	      try{
 	         tx = session.beginTransaction();
-	         Employee employee = 
-	                   (Employee)session.get(Employee.class, EmployeeID); 
+	         Employee employee = (Employee)session.get(Employee.class, EmployeeID); 
 	         session.delete(employee); 
 	         tx.commit();
 	      }catch (HibernateException e) {

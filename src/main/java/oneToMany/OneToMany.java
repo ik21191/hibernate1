@@ -22,7 +22,7 @@ public class OneToMany {
 	      }
 	      OneToMany ME = new OneToMany();
 	      /* Let us have a set of certificates for the first employee  */
-	      HashSet<Certificate> set1 = new HashSet<Certificate>();
+	      HashSet<Certificate> set1 = new HashSet<>();
 	      set1.add(new Certificate("MCA"));
 	      set1.add(new Certificate("MBA"));
 	      set1.add(new Certificate("PMP"));
@@ -31,7 +31,7 @@ public class OneToMany {
 	      Integer empID1 = ME.addEmployee("Manoj", "Kumar", 4000, set1);
 
 	      /* Another set of certificates for the second employee  */
-	      HashSet<Certificate> set2 = new HashSet<Certificate>();
+	      HashSet<Certificate> set2 = new HashSet<>();
 	      set2.add(new Certificate("BCA"));
 	      set2.add(new Certificate("BA"));
 

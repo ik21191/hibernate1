@@ -15,8 +15,7 @@
       <property name="firstName" column="first_name" type="string"/>
       <property name="lastName" column="last_name" type="string"/>
       <property name="salary" column="salary" type="int"/>
-      <many-to-one name="address" column="address" 
-       class="manyToOne.Address" not-null="true"/>
+      <many-to-one name="address" column="address" class="manyToOne.Address" not-null="true"/>
    </class>
 
    <class name="manyToOne.Address" table="ADDRESS">

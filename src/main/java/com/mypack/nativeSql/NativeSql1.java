@@ -38,7 +38,7 @@ public class NativeSql1 {
 	      Transaction tx = null;
 	      try{
 	         tx = session.beginTransaction();
-	         String query = "select {student.*} from student1 student where student.studentid=100";
+	         String query = "select {student.*} from student1 student where student.studentid = 100";
 	         SQLQuery sqlQuery = session.createSQLQuery(query);
 	         sqlQuery.addEntity("student", Student1.class);
 	         List<Student1> students = sqlQuery.list();
