@@ -15,7 +15,7 @@ public class ThreadTest implements Runnable {
 	}
 	public static void save() {
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(10000);
 			System.out.println("Persisting.......");
 			System.out.println(Thread.currentThread().getName());
 			Session session = factory.openSession();

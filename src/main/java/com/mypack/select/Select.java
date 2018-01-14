@@ -1,5 +1,6 @@
 package com.mypack.select;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -13,8 +14,9 @@ import beans.Person;
 	get() - returns the complete object from database.
 */
 public class Select {
+	private static final Logger log = Logger.getLogger(Select.class);
     public static void main( String[] args ) {
-        System.out.println("Fetching Person......." );
+    	log.info("Fetching Person......." );
         try {
             Configuration cfg = new Configuration().configure();
             SessionFactory f = cfg.buildSessionFactory();
@@ -23,12 +25,12 @@ public class Select {
             Person p1 = (Person)session.load(Person.class, 10);// Assume this id is not available in DB
             
             t.commit();
-            System.out.println(p1.getId());// Database is not hit here
+            log.info(p1.getId());// Database is not hit here
             //System.out.println("ID: " + p1.getId() + " Name: " + p1.getName() + " Age " + p1.getAge());//DB hit
             
         }
         catch(Exception e) {
-            System.out.println(e);
+            log.error(e);
         }
     }
 }
