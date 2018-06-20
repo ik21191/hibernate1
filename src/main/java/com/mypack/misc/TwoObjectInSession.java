@@ -20,7 +20,7 @@ public class TwoObjectInSession {
             Session session = f.openSession();
             Transaction t = session.beginTransaction();
             
-            Person currentPerson = (Person)session.load(Person.class, 2);
+            Person currentPerson = (Person)session.load(Person.class, 1);
             System.out.println("Before merge : " + currentPerson.getName());
             t.commit();
             session.close();
@@ -28,12 +28,12 @@ public class TwoObjectInSession {
             Session session2 = f.openSession();
             Transaction t2 = session2.beginTransaction();
             Person newPerson = (Person)session2.load(Person.class, 2);
-            newPerson.setName("Imran Khan");
-            session2.update(currentPerson);//Throws NonUniqueObjectException
-            //session.merge(newPerson);
+            newPerson.setName("mmmmmmmmmmmmm");
+            //session2.update(currentPerson);//Throws NonUniqueObjectException
+            session2.merge(currentPerson);
             t2.commit();
             session2.close();
-            System.out.println("After merge : " + currentPerson.getName());
+            System.out.println("After merge : " + newPerson.getName());
             System.out.println(currentPerson.hashCode() == newPerson.hashCode());
         }
         catch(Exception e) {

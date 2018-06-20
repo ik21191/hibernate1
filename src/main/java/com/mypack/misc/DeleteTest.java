@@ -22,7 +22,10 @@ public class DeleteTest {
             Session session = f.openSession();
             Transaction t = session.beginTransaction();
             
-            Person person = (Person)session.get(Person.class, 1);
+            //Person person = (Person)session.get(Person.class, 1);
+            Person person = new Person();
+            person.setId(2);
+            
             
             session.delete(person);//Throws NonUniqueObjectException
             t.commit();

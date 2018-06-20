@@ -21,6 +21,11 @@ public class OneToMany {
 	         throw new ExceptionInInitializerError(ex); 
 	      }
 	      OneToMany ME = new OneToMany();
+	      
+	      System.out.println("Getting emp: start");
+	      ME.getEmployee(9);
+	      System.out.println("Getting emp: end");
+	    
 	      /* Let us have a set of certificates for the first employee  */
 	      HashSet<Certificate> set1 = new HashSet<>();
 	      set1.add(new Certificate("MCA"));
@@ -42,13 +47,13 @@ public class OneToMany {
 	      ME.listEmployees();
 
 	      /* Update employee's salary records */
-	      ME.updateEmployee(empID1, 5000);
+	      //ME.updateEmployee(empID1, 5000);
 
 	      /* Delete an employee from the database */
 	      //ME.deleteEmployee(empID2);
 
 	      /* List down all the employees */
-	      //ME.listEmployees();
+	      ME.listEmployees();
 
 	   }
 
@@ -73,6 +78,31 @@ public class OneToMany {
 	      return employeeID;
 	   }
 
+	   public void getEmployee(int id) {
+
+		      Session session = factory.openSession();
+		      Transaction tx = null;
+		      try{
+		         tx = session.beginTransaction();
+		         
+		         Employee emp = (Employee)session.load(Employee.class, id);
+		         
+		         System.out.println("Emp id: " + emp.getId() + ", EmpName: " + emp.getFirstName());
+		         
+		         Set<Certificate> certificates = emp.getCertificates();
+		            for (Certificate certificate : certificates) {
+		                  System.out.println("Certificate: " + certificate.getName()); 
+		            }
+		         tx.commit();
+		      }catch (HibernateException e) {
+		         if (tx!=null) tx.rollback();
+		         e.printStackTrace(); 
+		      }finally {
+		         session.close(); 
+		      }
+		   
+	   }
+	   
 	   /* Method to list all the employees detail */
 	   public void listEmployees( ){
 	      Session session = factory.openSession();
